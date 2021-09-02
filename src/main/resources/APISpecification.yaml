@@ -1,0 +1,307 @@
+openapi: 3.0.3
+info:
+  version: "1.0"
+  title: PostCode API
+paths:
+  "/api/v1/authenticate":
+    post:
+      description: >-
+        <strong>Returns a JWT token </strong>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - jwt
+                properties:
+                  jwt:
+                    type: string
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "500":
+          description: General Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+  "/api/v1/secure/addrecord":
+    post:
+      description: >-
+        <strong>Add new Record</strong>
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          example: Bearer  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjMwNTkzODk2LCJpYXQiOjE2MzA1NzU4OTZ9.Rl900xmztaVXrW7XkF_ovMcgtdrA3_cu9fcW6CD4_oDokc5oxKlNMNxFphtaczbvgPhoss0Ikj32tJV71nFSHA
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - postCode
+                - suburb
+                - state
+              properties:
+                postCode:
+                  type: string
+                suburb:
+                  type: string
+                state:
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - postCode
+                  - suburb
+                  - state
+                properties:
+                  postCode:
+                    type: string
+                  suburb:
+                    type: string
+                  state:
+                    type: string
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "500":
+          description: General Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+  "/api/v1/suburb/{suburbName}":
+    get:
+      description: >-
+        <strong>Get Suburb details</strong>
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+          example: application/json
+        - name: suburbName
+          in: path
+          required: true
+          schema:
+            type: string
+          example: MELBOURNE
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          example: Bearer  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjMwNTkzODk2LCJpYXQiOjE2MzA1NzU4OTZ9.Rl900xmztaVXrW7XkF_ovMcgtdrA3_cu9fcW6CD4_oDokc5oxKlNMNxFphtaczbvgPhoss0Ikj32tJV71nFSHA
+      responses:
+        "200":
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - postCode
+                  - suburb
+                  - state
+                properties:
+                  postCode:
+                    type: string
+                  suburb:
+                    type: string
+                  state:
+                    type: string
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "500":
+          description: General Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+  "/api/v1/postcode/{postcode}":
+    get:
+      description: >-
+        <strong>Get Postcode details</strong>
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+          example: application/json
+        - name: postcode
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 3000
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          example: Bearer  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjMwNTkzODk2LCJpYXQiOjE2MzA1NzU4OTZ9.Rl900xmztaVXrW7XkF_ovMcgtdrA3_cu9fcW6CD4_oDokc5oxKlNMNxFphtaczbvgPhoss0Ikj32tJV71nFSHA
+      responses:
+        "200":
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - postCode
+                  - suburb
+                  - state
+                properties:
+                  postCode:
+                    type: string
+                  suburb:
+                    type: string
+                  state:
+                    type: string
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
+        "500":
+          description: General Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  timestamp:
+                    type: string
+                  error:
+                    type: string
+                  status:
+                    type: string
